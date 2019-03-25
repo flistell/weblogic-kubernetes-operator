@@ -43,7 +43,7 @@ public class ServerKubernetesObjects {
    *
    * @return Service
    */
-  public AtomicReference<V1Service> getService() {
+  AtomicReference<V1Service> getService() {
     return service;
   }
 

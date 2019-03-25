@@ -108,6 +108,19 @@ public class ServiceHelper {
     return getLabelValue(service, LabelConstants.CLUSTERNAME_LABEL);
   }
 
+  public static List<Step> createAdminServiceSteps(DomainPresenceInfo info) {
+    List<Step> steps = new ArrayList<>();
+    if (!getAdminServiceChannels(info).isEmpty()) steps.add(createForExternalServiceStep(null));
+    steps.add(createForServerStep(null));
+    return steps;
+  }
+
+  private static List<Channel> getAdminServiceChannels(DomainPresenceInfo info) {
+    return Optional.ofNullable(info.getDomain().getAdminServerSpec().getAdminService())
+        .map(AdminService::getChannels)
+        .orElse(Collections.emptyList());
+  }
+
   private static class ForServerStep extends ServiceHelperStep {
     ForServerStep(Step next) {
       super(next);
@@ -146,7 +159,7 @@ public class ServiceHelper {
       super(conflictStep, packet, KubernetesServiceType.SERVER);
       serverName = (String) packet.get(ProcessingConstants.SERVER_NAME);
       clusterName = (String) packet.get(ProcessingConstants.CLUSTER_NAME);
-      scan = (WlsServerConfig) packet.get(ProcessingConstants.SERVER_SCAN);
+      scan = domainTopology.getServerConfig(serverName);
       version = packet.getSPI(KubernetesVersion.class);
     }
 

@@ -10,7 +10,6 @@ import static oracle.kubernetes.LogMatcher.containsInfo;
 import static oracle.kubernetes.operator.ProcessingConstants.CLUSTER_NAME;
 import static oracle.kubernetes.operator.ProcessingConstants.DOMAIN_TOPOLOGY;
 import static oracle.kubernetes.operator.ProcessingConstants.SERVER_NAME;
-import static oracle.kubernetes.operator.ProcessingConstants.SERVER_SCAN;
 import static oracle.kubernetes.operator.helpers.ServiceHelperTest.NodePortMatcher.nodePort;
 import static oracle.kubernetes.operator.helpers.ServiceHelperTest.PortMatcher.containsPort;
 import static oracle.kubernetes.operator.helpers.ServiceHelperTest.ServiceNameMatcher.serviceWithName;
@@ -156,7 +155,6 @@ public class ServiceHelperTest extends ServiceHelperTestBase {
         .addToPacket(CLUSTER_NAME, TEST_CLUSTER)
         .addToPacket(SERVER_NAME, testFacade.getServerName())
         .addToPacket(DOMAIN_TOPOLOGY, domainConfig)
-        .addToPacket(SERVER_SCAN, serverConfig)
         .addDomainPresenceInfo(domainPresenceInfo);
     testFacade.configureService(configureDomain()).withServiceLabel(OLD_LABEL, "value");
     testFacade.configureService(configureDomain()).withServiceAnnotation(OLD_ANNOTATION, "value");

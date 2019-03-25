@@ -137,12 +137,6 @@ public class DomainPresenceTest extends ThreadFactoryTestBase {
                 .creationTimestamp(DateTime.now()));
   }
 
-  private Map<String, String> createMap(String key1, String value1) { // todo use ImmutableMap
-    Map<String, String> map = new HashMap<>();
-    map.put(key1, value1);
-    return map;
-  }
-
   private ServerKubernetesObjects getServerKubernetesObjects(
       DomainProcessorStub dp, String uid, String serverName) {
     return getDomainPresenceInfo(dp, uid).getServers().get(serverName);
